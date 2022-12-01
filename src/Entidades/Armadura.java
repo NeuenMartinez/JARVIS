@@ -1,25 +1,29 @@
 package Entidades;
 
+import Enumeraciones.Materiales;
+import java.util.Arrays;
+
 /**
  *
  * @author NeuenMartinez
  */
 public class Armadura {
 
-    private final String colorPrimario = "Rojo";
-    private final String colorSecundario = "Amarillo";
+    private String colorPrimario;
+    private String colorSecundario;
     private Integer Energia = 10000;
     private Integer Salud = 100;
-    private Integer Resistencia;
-    private Guante guanteTraje;
-    private Bota botaTraje;
-    private Consola consolaTraje;
-    private Sintetizador sintetizadorTraje;
+    private Materiales Resistencia;
+    private Guante guanteTraje[] = new Guante[2];
+    private Bota botaTraje[] = new Bota[2];
+    private Consola consolaTraje = new Consola();
+    private Sintetizador sintetizadorTraje = new Sintetizador();
 
     public Armadura() {
+        
     }
 
-    public Armadura(Integer Resistencia, Guante guanteTraje, Bota botaTraje, Consola consolaTraje, Sintetizador sintetizadorTraje) {
+    public Armadura(Materiales Resistencia, Guante[] guanteTraje, Bota[] botaTraje, Consola consolaTraje, Sintetizador sintetizadorTraje) {
         this.Resistencia = Resistencia;
         this.guanteTraje = guanteTraje;
         this.botaTraje = botaTraje;
@@ -27,6 +31,23 @@ public class Armadura {
         this.sintetizadorTraje = sintetizadorTraje;
     }
 
+    public String getColorPrimario() {
+        return colorPrimario;
+    }
+
+    public void setColorPrimario(String colorPrimario) {
+        this.colorPrimario = colorPrimario;
+    }
+
+    public String getColorSecundario() {
+        return colorSecundario;
+    }
+
+    public void setColorSecundario(String colorSecundario) {
+        this.colorSecundario = colorSecundario;
+    }
+
+    
     public Integer getEnergia() {
         return Energia;
     }
@@ -43,27 +64,27 @@ public class Armadura {
         this.Salud = Salud;
     }
 
-    public Integer getResistencia() {
+    public Materiales getResistencia() {
         return Resistencia;
     }
 
-    public void setResistencia(Integer Resistencia) {
+    public void setResistencia(Materiales Resistencia) {
         this.Resistencia = Resistencia;
     }
 
-    public Guante getGuanteTraje() {
+    public Guante[] getGuanteTraje() {
         return guanteTraje;
     }
 
-    public void setGuanteTraje(Guante guanteTraje) {
+    public void setGuanteTraje(Guante[] guanteTraje) {
         this.guanteTraje = guanteTraje;
     }
 
-    public Bota getBotaTraje() {
+    public Bota[] getBotaTraje() {
         return botaTraje;
     }
 
-    public void setBotaTraje(Bota botaTraje) {
+    public void setBotaTraje(Bota[] botaTraje) {
         this.botaTraje = botaTraje;
     }
 
@@ -85,7 +106,7 @@ public class Armadura {
 
     @Override
     public String toString() {
-        return "Armadura{" + "colorPrimario: " + colorPrimario + ", colorSecundario: " + colorSecundario + ", Energia =" + Energia + ", Salud =" + Salud + ", Resistencia =" + Resistencia + ", guanteTraje =" + guanteTraje + ", botaTraje =" + botaTraje + ", consolaTraje =" + consolaTraje + ", sintetizadorTraje =" + sintetizadorTraje + '}';
+        return "Armadura{" + "colorPrimario: " + colorPrimario + ", colorSecundario: " + colorSecundario + ", Energia =" + Energia + ", Salud =" + Salud + ", Resistencia =" + Resistencia + ", guanteTraje =" + Arrays.toString(guanteTraje) + ", botaTraje =" + Arrays.toString(botaTraje) + ", consolaTraje =" + consolaTraje + ", sintetizadorTraje =" + sintetizadorTraje + '}';
     }
     
     
