@@ -1,7 +1,6 @@
 package Servicios;
 
 import Entidades.Armadura;
-import Entidades.Bota;
 import Entidades.Objetivos;
 import Enumeraciones.Materiales;
 import java.util.ArrayList;
