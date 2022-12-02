@@ -173,14 +173,49 @@ public class JarvisService {
     }
 
     public void usarConsola() {
-
+        Ironman.setEnergia(Ironman.getEnergia() - (Ironman.getConsolaTraje().getConsumEnrgia() * 1));
     }
 
     public void usarSintetizador() {
-
+        Ironman.setEnergia(Ironman.getEnergia() - (Ironman.getSintetizadorTraje().getConsumEnrgia() * 1));
     }
 
     public void menu() {
+
+        boolean exitMenu = false;
+        do {
+            System.out.println("¿Que acciones desea realizar?");
+            System.out.println("------------------------------------------------");
+            System.out.println("1. Mostrar Estado del traje" + "\n"
+                    + "2. Utilizar radar" + "\n"
+                    + "3. Destruir Enemigos" + "\n"
+                    + "4. Salir");
+            System.out.println("------------------------------------------------");
+            try {
+                switch (leer.nextInt()) {
+
+                    case 1:
+                        mostrarEstado();
+                        break;
+                    case 2:
+                        radar();
+                        break;
+                    case 3:
+                        destruirEnemigos();
+                        break;
+                    case 4:
+                        System.out.println("Apagando sistemas...");
+                        exitMenu = true;
+                        break;
+                    default:
+                        System.out.println("La opcion ingresada es invalida... Intente nuevamente");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Error. Ingrese un caracter valido");
+                leer.nextInt();
+            }
+
+        } while (exitMenu == false);
 
     }
 
