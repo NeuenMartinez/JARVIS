@@ -6,6 +6,7 @@ import Enumeraciones.Materiales;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Scanner;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  *
@@ -52,25 +53,123 @@ public class JarvisService {
         
     }
 
-    public void caminar() {
-        
-        
+    public void caminar(Objetivos a) {
+        Double eleccion=0d;
+        System.out.println("ingrese la distancia a recorrer" + "\n"
+                + "distancia maxima:" + a.getDistancia());
+        do{
+            try{
+             eleccion=leer.nextDouble();
+            }catch(NumberFormatException e){
+                System.out.println("ingrese un numero entero valido");
+                leer.next();
+            }
+        }while(eleccion<0 || eleccion>a.getDistancia());
+        int tiempo=CalcularTiempoDistancia(10,eleccion);
+         Ironman.setEnergia(Ironman.getEnergia()-(Ironman.getBotaTraje()[0].getConsumEnrgia()*tiempo*1));
+         Ironman.setEnergia(Ironman.getEnergia()-(Ironman.getGuanteTraje()[0].getConsumEnrgia()*tiempo*1));
+         for (int i = 0; i < 2; i++) {
+          Integer random=ThreadLocalRandom.current().nextInt(1,100+1);
+             if (random<31) {
+                 Ironman.getBotaTraje()[i].setDañado(true);
+             }
+        }
+         for (int i = 0; i < 2; i++) {
+          Integer random=ThreadLocalRandom.current().nextInt(1,100+1);
+             if (random<31) {
+                 Ironman.getGuanteTraje()[i].setDañado(true);
+             }
+        }
     }
 
-    public void correr() {
-
+    public void correr(Objetivos a) {
+        Double eleccion=0d;
+        System.out.println("ingrese la distancia a recorrer" + "\n"
+                + "distancia maxima:" + a.getDistancia());
+        do{
+            try{
+             eleccion=leer.nextDouble();
+            }catch(NumberFormatException e){
+                System.out.println("ingrese un numero entero valido");
+                leer.next();
+            }
+        }while(eleccion<0 || eleccion>a.getDistancia());
+        int tiempo=CalcularTiempoDistancia(10,eleccion);
+         Ironman.setEnergia(Ironman.getEnergia()-(Ironman.getBotaTraje()[0].getConsumEnrgia()*tiempo*2));
+         Ironman.setEnergia(Ironman.getEnergia()-(Ironman.getGuanteTraje()[0].getConsumEnrgia()*tiempo*1));
+         for (int i = 0; i < 2; i++) {
+          Integer random=ThreadLocalRandom.current().nextInt(1,100+1);
+             if (random<31) {
+                 Ironman.getBotaTraje()[i].setDañado(true);
+             }
+        }
+         for (int i = 0; i < 2; i++) {
+          Integer random=ThreadLocalRandom.current().nextInt(1,100+1);
+             if (random<31) {
+                 Ironman.getGuanteTraje()[i].setDañado(true);
+             }
+        }
     }
 
-    public void propulsar() {
-
+    public void propulsar(Objetivos a) {
+        Double eleccion=0d;
+        System.out.println("ingrese la distancia a recorrer" + "\n"
+                + "distancia maxima:" + a.getDistancia());
+        do{
+            try{
+             eleccion=leer.nextDouble();
+            }catch(NumberFormatException e){
+                System.out.println("ingrese un numero entero valido");
+                leer.next();
+            }
+        }while(eleccion<0 || eleccion>a.getDistancia());
+        int tiempo=CalcularTiempoDistancia(10,eleccion);
+         Ironman.setEnergia(Ironman.getEnergia()-(Ironman.getBotaTraje()[0].getConsumEnrgia()*tiempo*3));
+         for (int i = 0; i < 2; i++) {
+          Integer random=ThreadLocalRandom.current().nextInt(1,100+1);
+             if (random<31) {
+                 Ironman.getBotaTraje()[i].setDañado(true);
+             }
+        }
     }
 
-    public void volar() {
-
+    public void volar(Objetivos a) {
+        Double eleccion=0d;
+        System.out.println("ingrese la distancia a recorrer" + "\n"
+                + "distancia maxima:" + a.getDistancia());
+        do{
+            try{
+             eleccion=leer.nextDouble();
+            }catch(NumberFormatException e){
+                System.out.println("ingrese un numero entero valido");
+                leer.next();
+            }
+        }while(eleccion<0 || eleccion>a.getDistancia());
+        int tiempo=CalcularTiempoDistancia(10,eleccion);
+         Ironman.setEnergia(Ironman.getEnergia()-(Ironman.getBotaTraje()[0].getConsumEnrgia()*tiempo*3));
+         Ironman.setEnergia(Ironman.getEnergia()-(Ironman.getGuanteTraje()[0].getConsumEnrgia()*tiempo*2));
+         for (int i = 0; i < 2; i++) {
+          Integer random=ThreadLocalRandom.current().nextInt(1,100+1);
+             if (random<31) {
+                 Ironman.getBotaTraje()[i].setDañado(true);
+             }
+        }
+         for (int i = 0; i < 2; i++) {
+          Integer random=ThreadLocalRandom.current().nextInt(1,100+1);
+             if (random<31) {
+                 Ironman.getGuanteTraje()[i].setDañado(true);
+             }
+        }
     }
 
     public void disparar() {
-
+        Ironman.setEnergia(Ironman.getEnergia()-(Ironman.getGuanteTraje()[0].getConsumEnrgia()*3*3));
+        for (int i = 0; i < 2; i++) {
+          Integer random=ThreadLocalRandom.current().nextInt(1,100+1);
+             if (random<6) {
+                 Ironman.getGuanteTraje()[i].setDañado(true);
+             }
+        }
     }
 
     public void usarConsola() {
@@ -107,5 +206,19 @@ public class JarvisService {
 
     public void accionesEvasivas() {
 
+    }
+    
+    public Integer CalcularDistancia(){
+        int distancia;
+        int a=ThreadLocalRandom.current().nextInt(1,37+1);
+        int b=ThreadLocalRandom.current().nextInt(1,37+1);
+        int c=ThreadLocalRandom.current().nextInt(1,37+1);
+        distancia=(int)Math.sqrt(Math.pow(a, 2)+Math.pow(b, 2)+Math.pow(c, 2));
+        return distancia;
+    }
+    
+    public Integer CalcularTiempoDistancia(Integer a,double b){
+        Double tiempo=a/3.6;
+        return((int)(b/tiempo));
     }
 }
