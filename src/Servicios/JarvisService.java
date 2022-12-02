@@ -201,7 +201,7 @@ public class JarvisService {
                         radar();
                         break;
                     case 3:
-                        destruirEnemigos();
+                        simulador();
                         break;
                     case 4:
                         System.out.println("Apagando sistemas...");
@@ -221,26 +221,107 @@ public class JarvisService {
 
     public void mostrarEstado() {
 
+        System.out.println("Mostrando el estado de todos los dispositivos y toda la información de la Armadura.");
+        System.out.println("Informacion del reactor: ");
+        System.out.println("------------------------------------------------");
+        System.out.println("Condicion de la bateria: " + Ironman.getEnergia() + "/10000 kWh");
+        System.out.println("------------------------------------------------");
+        System.out.println("Informacion sobre las partes del traje: ");
+        System.out.println("------------------------------------------------");
+
+        for (int i = 0; i < 2; i++) {
+            System.out.println("Destruccion de Bota " + (i + 1) + ": " + Ironman.getBotaTraje()[i].getDestruido());
+        }
+
+        for (int i = 0; i < 2; i++) {
+            System.out.println("Destruccion de Guante " + (i + 1) + ": " + Ironman.getGuanteTraje()[i].getDestruido());
+        }
+        System.out.println("------------------------------------------------");
+
     }
 
     public void revisarDispositivos() {
+
+        boolean exitReparacion = false;
+        System.out.println("Revisando dispositivos...");
+        do {
+
+            for (int i = 0; i < 2; i++) {
+                System.out.println("Revisando Bota " + (i + 1) + "...");
+                if (Ironman.getBotaTraje()[i].getDañado() == true && Ironman.getBotaTraje()[i].getDestruido() == false) {
+                    System.out.println("La Bota " + (i + 1) + " se encuentra dañada... procediendo a intentar repararla");
+                    Integer random = ThreadLocalRandom.current().nextInt(1, 100 + 1);
+                    if (random < 31) {
+                        System.out.println("Reparacion fallida... la pieza ha sido destruida");
+                        Ironman.getBotaTraje()[i].setDañado(false);
+                        Ironman.getBotaTraje()[i].setDestruido(true);
+                    } else if (random > 31 && random < 71) {
+                        System.out.println("Reparacion exitosa! la pieza se encuentra de nuevo funcional");
+                        Ironman.getBotaTraje()[i].setDañado(false);
+                    } else {
+                        System.out.println("Error en la reparacion... Intentando nuevamente...");
+                        Ironman.getBotaTraje()[i].setDañado(true);
+                    }
+                }
+            }
+
+            for (int i = 0; i < 2; i++) {
+                System.out.println("Revisando Guante " + (i + 1) + "...");
+                if (Ironman.getGuanteTraje()[i].getDañado() == true && Ironman.getGuanteTraje()[i].getDestruido() == false) {
+                    System.out.println("El guante " + (i + 1) + " se encuentra dañado... procediendo a intentar repararlo");
+                    Integer random = ThreadLocalRandom.current().nextInt(1, 100 + 1);
+                    if (random < 31) {
+                        System.out.println("Reparacion fallida... la pieza ha sido destruida");
+                        Ironman.getGuanteTraje()[i].setDañado(false);
+                        Ironman.getGuanteTraje()[i].setDestruido(true);
+                    } else if (random > 31 && random < 71) {
+                        System.out.println("Reparacion exitosa! la pieza se encuentra de nuevo funcional");
+                        Ironman.getGuanteTraje()[i].setDañado(false);
+                    } else {
+                        System.out.println("Error en la reparacion... Intentando nuevamente...");
+                        Ironman.getGuanteTraje()[i].setDañado(true);
+                    }
+                }
+            }
+
+        } while (exitReparacion == false);
 
     }
 
     public void radar() {
 
+        Integer random = ThreadLocalRandom.current().nextInt(1, 10 + 1);
+        for (int i = 0; i < random; i++) {
+            ListaObjetos.add(new Objetivos(CalcularDistancia(), ThreadLocalRandom.current().nextInt(1, 10 + 1), ThreadLocalRandom.current().nextBoolean()));
+            System.out.println("se a detectado un objetivo" + "\n"
+                    + "distancia:" + ListaObjetos.get(i).getDistancia() + "\n"
+                    + "hostilidad:" + ListaObjetos.get(i).getHostil());
+        }
+
     }
 
     public void simulador() {
 
+        ArrayList<Objetivos> enemigos = new ArrayList();
+        for (Objetivos aux : ListaObjetos) {
+            if (aux.getHostil() == true) {
+                enemigos.add(aux);
+            }
+        }
+        destruirEnemigos(enemigos);
+
     }
 
-    public void destruirEnemigos() {
+    public void destruirEnemigos(ArrayList<Objetivos> enemigos) {
 
     }
 
     public void accionesEvasivas() {
-
+        System.out.println("el traje se encuentra en mal estado iniciando maniobras evasivas");
+        for (Objetivos aux : ListaObjetos) {
+            aux.setDistancia(aux.getDistancia() + 10000);
+        }
+        Ironman.setEnergia(Ironman.getEnergia() - (Ironman.getBotaTraje()[0].getConsumEnrgia() * CalcularTiempoDistancia(300, 10000) * 3));
     }
 
     //calculo de distancia entre punto A y punto B en un plano tridimenisonal donde A empieza en coordenadas 0 y b es un punto suelto
